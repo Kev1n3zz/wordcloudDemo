@@ -1,16 +1,27 @@
-# This is a sample Python script.
+# -*- coding: utf-8 -*-
+import jieba
+import sys
+import matplotlib.pyplot as plt
+from wordcloud import WordCloud
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# 打开本体TXT文件
+text = open("data.txt", "rb").read()
+print
+type(text)
 
+# 结巴分词 cut_all=True 设置为精准模式
+wordlist = jieba.cut(text, cut_all=False)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# 使用空格连接 进行中文分词
+wl_space_split = " ".join(wordlist)
+print
+wl_space_split
 
+# 对分词后的文本生成词云
+my_wordcloud = WordCloud().generate(wl_space_split)
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+# 显示词云图
+plt.imshow(my_wordcloud)
+# 是否显示x轴、y轴下标
+plt.axis("off")
+plt.show()
